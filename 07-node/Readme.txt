@@ -34,7 +34,19 @@ global:
 
 十六进制转十进制：30 ---> 48 ----> 0   中国人   GBK   GB2312  Unicode  UTF8 
 
+node：　
+    作为前端的工具  脚手架  npm 
+    作为服务端的runtime  js
+    中间层:跨域问题，过滤数据
+    SSR：服务端渲染  vue 
+    localhost:8080 => devServer:8080 => localhost:3000
 
+global ===> window 
+    process 
+    buffer : 缓冲区  缓存  内存中的一块区域
+    console 
+    require 
+    .... 
 
 
 

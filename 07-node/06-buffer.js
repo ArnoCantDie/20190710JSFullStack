@@ -36,5 +36,27 @@
 // let b1 = Buffer.allocUnsafe(10) // 开一块内存空间，大小为10个字节，只管分配空间，不管清空里面的垃圾数据
 // console.log(b1)
 
-const b1 = Buffer.from('hello world');
-console.log(b1.toString(2))
+// const b1 = Buffer.from('hello world');
+// console.log(b1.toString(2))
+
+// let b = Buffer.from("中")
+// b = b.toString("base64")
+// console.log(b)  // 5Lit
+
+// let b = Buffer.from("中")
+// console.log(b)  // <Buffer e4 b8 ad>
+
+// console.log((0xe4).toString(2)) // 11100100
+// console.log((0xb8).toString(2)) // 10111000
+// console.log((0xad).toString(2)) // 10101101
+
+// 00111001 00001011 00100010 00101101
+// console.log(parseInt("00111001",2)) // 57
+// console.log(parseInt("00001011",2))  // 11
+// console.log(parseInt("00100010",2))  // 34
+// console.log(parseInt("00101101",2))  // 45
+
+// let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// str += str.toLowerCase();
+// str += "0123456789+/";
+// console.log(str[57]+str[11]+str[34]+str[45])  // 5Lit
