@@ -1,55 +1,53 @@
-node是什么？
-    运行ecmascript的一个运行环境。基于v8引擎。并没有dom操作。操作数据库，操作文件...
+node.js  
+UE图---->业务
+UI图---->画页面  组件
 
-node的特点？
-    1，主线程是单线程  ajax请求  setTimeout()  底层还是多线程。
-    2，非阻塞IO模型 （同步异步）(IO密集性型)  同步阻塞   异步非阻塞
-    3，创建高性能的web服务器
-    4，基于事件驱动
-    5，npm(第三方模块)   node    java    jdk  jar
+vue常见面试题(junjin.im  知识星球  csdn)
+准备一个项目
 
-node中的模块：
-    内置，核心，系统模块
-    第三方模块（包，依赖）
-    自定义模块
+----------------------------------
+node--->path   fs   http   url   querystring
 
-node安装：
-    LTS：10.x  
-    Current: 12.x
+fs.readFile("name.txt",function(){})
 
-node11.x版本之后，事件环就慢慢和浏览器的事件环一样了。
+异步：
+    异步顺程：回调(高阶函数)，promise，generator+co，asycn+await
 
-JS中有一个全局对象：global
-    浏览器：window    var a = 110;   window.a 
-    node: global
+------------------------------------
+promise: 答应，承诺的意思  结果不能立即得到
+利用promise主要解决：并发问题，链式调用问题  如果没有promise，之前全部靠回调函数。
+回调会产生回调地域。
+axios.get("/api/getUser",function(data){
+    axios.get("/api/getCart",function(data){
+        axios.get("/api/getCart/1",function(data){
 
-global:
-    exports module  require  __dirname  __filename
-    process 进程  表示当前的运行环境  
-    Buffer 内存中的数据，都是二进制数据，缓存，虽然buffer中保存地是二进制，但是表现出来的是16进制
-    setTimeout  clearTimeout       宏
-    setInterval  clearInterval     宏
-    setImmediate  clearImmeidata   宏
-    console
+        })
+    })
+})
 
-十六进制转十进制：30 ---> 48 ----> 0   中国人   GBK   GB2312  Unicode  UTF8 
+---------------------------
+Promise是一个类，使用之前需要new ，在new的时候，
+需要给Promise传递一个执行器。这个执行器会立即执行。
+在执行器中有两个参数：resolve,reject，是函数，就可以把promise从等待状到成功或失败。
+promise有一个then方法，如果到成功状，它会调用then中的第1个函数
+如果失败了，它会调用then中的第2函数。 在then中第1个函数的参数就是成功的结果，
+在then中第2个函数就的参数就是失败的结果 
 
-node：　
-    作为前端的工具  脚手架  npm 
-    作为服务端的runtime  js
-    中间层:跨域问题，过滤数据
-    SSR：服务端渲染  vue 
-    localhost:8080 => devServer:8080 => localhost:3000
-
-global ===> window 
-    process 
-    buffer : 缓冲区  缓存  内存中的一块区域
-    console 
-    require 
-    .... 
+------------------
+在执行器中可以写异步代码 
 
 
 
-    
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
