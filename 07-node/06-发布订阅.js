@@ -1,0 +1,19 @@
+let e = {
+    arr:[],
+    on(fn){
+       this.arr.push(fn)
+    },
+    emit(){
+        this.arr.forEach(fn=>fn())
+    }
+}
+e.on(()=>{
+    console.log("哈哈1")
+})
+e.on(()=>{
+    console.log("哈哈2")
+})
+e.on(()=>{
+    console.log("哈哈3")
+})
+e.emit()
