@@ -1,0 +1,21 @@
+{
+  "name": "07-node",
+  "version": "1.0.0",
+  "description": "koa   \r     中间件\r     依赖第三方的中间件",
+  "main": "01-koa.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compose": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.0"
+  }
+}
