@@ -18,3 +18,31 @@ node  创建一台web服务器 对我提供网页服务的
     database，数据库 [{},{},{}],[{},{},{}],[{},{},{}]
     dollection，集合  多个js对象 [{},{},{}]
     document，文档  js对象 {}
+
+
+
+
+
+第1步：npm i koa-generator -g 
+第2步：koa2 mycms 
+第3步：cd mycms 
+第4步：npm i 
+第5步：npm start 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+const router = require("koa-router")()
+
+// 创建二级路由
+router.get("/",async (ctx)=>{
+    // ctx.body = "用户管理"
+    await ctx.render("index")
+})
+
+// 增加用户
+router.get("/add",async (ctx)=>{
+    ctx.body = "增加用户"
+})
+
+// 编辑用户
+router.get("/edit",async (ctx)=>{
+    ctx.body = "编辑用户"
+})
+
+// 删除用户
+router.get("/delete",async (ctx)=>{
+    ctx.body = "删除用户"
+})
+
+module.exports = router.routes()
