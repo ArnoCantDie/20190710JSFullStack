@@ -1,0 +1,178 @@
+创建项目的步骤：
+    第1步：npm i koa-generator -g 
+    第2步：koa2 mycms 
+    第3步：cd mycms 
+    第4步：npm i 
+    第5步：npm start 
+
+一个项目包含：
+    前台
+    后台
+    api接口
+
+鉴权：
+    cookie  是用来在浏览器存储数据，当访问一个服务器时，服务器会给浏览器返回一堆信息，
+           这一堆信息存储在cookie中，服务器给浏览器种植cookie。
+           再去请求服务器，会带上cookie。
+           不足：每次请求都会带着一堆cookie，不安全
+
+    session  也是存储数据，只是数据存储在服务器，session是基于cookie，cookie里面要保存seession_id
+        以后，每次请求都要带着session_id
+
+    jwt   token 
+
+-------------------------------------------
+回顾：
+    node:是js的运行平台  服务器端 
+    模块化：任何一个文件都是模块，导出一个模块，导入一个模块
+    模块：内置，第三方，自定义
+    内置：http   path   url   querystring   fs   events....
+    第三方：body-parser  koa-session  koa-static ...  
+
+    express : 
+    koa : 一切都是中间件  .... 
+    egg : 企业级  MVC
+
+    MonogoDB : 数据库   集合（users）   文档{name:"xx",age"xx"}
+               可视化工具
+
+    cms ：服务端渲染  通过模板引擎  渲染出模板  内容管理系统   
+          php   jsp   asp    老一代的技术  
+          前端只需要写页面  Html  css   js   jq    bootstrap
+
+    dj ： node  可以快速开接口  前端直接通过ajax，去请求api接口，得到数据，
+          直接把数据渲染到页面上。
+          java  给后台管理系统 和 vue前端提供接口
+          前后端分离开发   后台管理   vue前端
+          前端需要写页面（vue，react）  ajax去拿数据  渲染数据 
+          组件化   模块化   工程化   全栈化
+
+验证码：svg-captcha
+
+上传图片的步骤：
+    1，安装  npm i koa-multer 
+    2，引入  const multer = require("koa-multer") 
+    3，配置  xxx  
+    4，后端接收时必须是post  router.post("/doAdd", upload.single('pic'), async (ctx)=>{})
+       前端form表单上必须要加 enctype="multipart/form-data"
+       后端需要创建一个文件夹，用来保存前端上传的文件
+
+使用富文本编辑器的步骤：
+    1，下载  npm i koa2-ueditor 
+    2，引入使用 
+            const ueditor = require("koa2-ueditor")
+            // 配置富文本编辑器
+            router.all('/editor/controller', ueditor(['public', {
+                "imageAllowFiles": [".png", ".jpg", ".jpeg"],
+                "imagePathFormat": "/upload/ueditor/image/{yyyy}{mm}{dd}/{filename}"  // 保存为原文件名
+            }]))
+    3，在模板中引入ueditor静态文件  把官网的静态文件放到public下在 
+        <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+	    <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+    4，把之前的textarea使用script标签代替
+        <script id="editor" type="text/plain" style="width:600px;height:300px;"></script>
+    5，实例化编辑器
+        UE。getEditor("editor")
+
+
+编辑完新闻后，返回到哪里？
+
+
+友情连接？  互联网？
+
+同一个公司的网站：
+    wangcai.com    放了两个友情连接：xiaoqiang.com   haha.com 
+    人为：当我们去访问wangcai.com 
+
+    搜索引擎：百度，google   也有一套程序（蜘蛛，爬虫） 
+         蜘蛛： img  alt  
+                meta   keywords  xxxx  
+                mata   description   xxxx 
+                h1
+                .......
+    当在百度中搜索wangcai.com中的相当内容，那么就有可能搜索到你的内容。
+
+    有得提高SEO   如何在百度搜索时，把你的网站排到最前面   从技术层面着手去做 
+    SEM   钱
+
+api接口大部分情况下都是给移动端（h5移动端，ios，android，小程序，公众号....）提供数据。
+
+ssr:
+    localhost:3000/admin/manage/list  ----> 管理员列表
+    localhost:3000/admin/nav/list  ----> 导航列表
+
+csr:
+    localhost:3000/api/manage/list  --->  管理员列表json数据
+    localhost:3000/api/nav/list  ----> 导航列表json数据
+
+api接口分析：
+    管理员模块
+        增加管理员的接口
+        查询管理员的接口
+        更新管理员的接口
+        删除管理员的接口
+    分类模块
+        增加分类的接口
+        查询分类的接口
+        更新分类的接口
+        删除分类的接口
+    内容模块
+        增加内容的接口
+        查询内容的接口
+        更新内容的接口
+        删除内容的接口
+    轮播图模块
+        增加轮播图的接口
+        查询轮播图的接口
+        更新轮播图的接口
+        删除轮播图的接口
+    友情连接模块
+        增加友情连接的接口
+        查询友情连接的接口
+        更新友情连接的接口
+        删除友情连接的接口
+    导航管理模块
+        增加导航的接口
+        查询导航的接口
+        更新导航的接口
+        删除导航的接口
+
+postman:
+    写接口时，一定要配合这个工具。
+
+接口文档：
+    交给移动端，移动端会根据你的接口文档去请求数据。
+        world文档
+        txt文档
+    eolink
+    代码工具
+
+/**
+* 接口地址：/api/manage/list
+* 请求方式：get
+* 返回数据：{"x":"x"}
+*/
+app.get("/api/manage/list",function(){
+    res.send({
+        "",""
+        "",""
+        "",""
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
