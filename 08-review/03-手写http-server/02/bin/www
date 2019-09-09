@@ -1,0 +1,7 @@
+#! /usr/bin/env node 
+
+// es6   
+// import commander from "commander"
+
+require("../dist/main.js")
+
