@@ -7,7 +7,10 @@
     <!-- {{this.$store.getters.myName}} -->
 
     {{this.$store.state.age}}
+    <!-- 同步加 -->
     <button @click="add">Add</button>
+    <!-- 异步减 -->
+    <button @click="sub">Async Sub</button>
 </div>
 </template>
 <script>
@@ -31,6 +34,9 @@ export default {
             // commit一个mutations
             this.$store.commit("add",10)
         },
+        sub(){
+            this.$store.dispatch("asyncSub",10)
+        }
     }
 }
 </script>
