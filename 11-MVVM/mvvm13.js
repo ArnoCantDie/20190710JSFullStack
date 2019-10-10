@@ -171,22 +171,12 @@ class Vue{
     constructor(options){
         this.$el = options.el;
         this.$data = options.data;
-        let computed = options.computed;
-        // console.log(computed) // {getNewName: ƒ, a: ƒ, b: ƒ, c: ƒ, d: ƒ}
         if(this.$el){
-            new Observer(this.$data) // 数据劫持
+            new Observer(this.$data)
             // console.log(this.$data)
             // 现在也需要让vm代理this.$data
-            for(let key in computed){
-                // console.log(key)  // getNewName
-                Object.defineProperty(this.$data,key,{
-                    get:()=>{
-                       return computed[key].call(this);
-                    }
-                })
-            }
-            this.proxyVm(this.$data)  // 让vm代码data
-            new Compiler(this.$el,this)  // 编译模板
+            this.proxyVm(this.$data)
+            new Compiler(this.$el,this)  
         }
     }
     // 让vm代码data
@@ -205,19 +195,6 @@ class Vue{
 }
 
 // vue中使用vm实例代理了data   vm.$data.xx     vm.xx 
-// MVVM原理   Vue-router原理    Vuex原理     Vue-cli原理
-// webpack 
-
-// over  
-
-// 写个项目   vue  打包到小程序  手机 android   小程序
-
-// PS   量尺寸   吸颜色
-// HBuilderX  写代码 
-// 小程序的模拟器（https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html）    
-    // 百度搜索微信公众平台--->注册一个账号--->登录
-
-
 
 
 

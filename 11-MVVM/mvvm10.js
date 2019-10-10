@@ -1,76 +1,48 @@
-// 发布-订阅   观察者    观察者模式中包含发布-订阅模式
-// 发布-订阅   发布和订阅之间是没有必然联系的
-// 观察者（观察者和被观察者） 被观察者中包含观察者
-
-// 存储观察者的类Dep
-class Dep{
-    constructor(){
-        this.subs = []; // subs中存放所有的watcher
-    }
-    // 添加watcher  订阅
-    addSub(watcher){
-        this.subs.push(watcher)
-    }
-    // 通知 发布  通知subs容器中所有的观察者
-    notify(){
-        this.subs.forEach(watcher=>watcher.update())
-    }
-}
-
-// 观察者
-class Watcher{
-    constructor(vm,expr,cb){
-        this.vm = vm;
-        this.expr = expr;
-        this.cb = cb;  // cb表示当状态改变了，要干的事
-        // 刚开始需要保存一个老的状态
-        this.oldValue = this.get();
-    }
-    // 获取状态的方法
-    get(){
-        Dep.target = this;
-        let value = CompilerUtil.getVal(this.vm,this.expr);
-        Dep.target = null;
-        return value;
-    }
-    // 当状态发生改变后，会调用观察者的update方法
-    update(){
-        let newVal = CompilerUtil.getVal(this.vm,this.expr);
-        if(newVal !== this.oldValue){
-            this.cb(newVal);
-        }
-    }
-}
-
 // 实现数据的响应式  new
 class Observer{
     constructor(data){
+        // 此时，数据还不是响应式的
+        // console.log(data)  // school: {name: "beida", age: 100}
         this.observer(data)
     }
-    observer(data){ 
+    // 把上面的数据变成响应式数据 把一个对象数据做成响应式
+    observer(data){  // {name: "beida", age: 100}
         if(data && typeof data == 'object'){
+            // console.log(data)  // {school: {name: "beida", age: 100}}
+            // for in循环一个js对象
             for(let key in data){
+                // console.log(key) // school
+                // console.log(data[key]) // {name: "beida", age: 100}
                 this.defindReactive(data,key,data[key])
             }
         }
     }
     defindReactive(obj,key,value){
         this.observer(value);  // 如果一个数据是一个对象，也需要把这个对象中的数据变成响应式
-        let dep = new Dep(); // 不同的watcher放到不同的dep中
+        // console.log(obj)  //{school: {name: "beida", age: 100}}
+        // console.log(key)   //  // school
+        // console.log(value) // {name: "beida", age: 100}
+        // let obj = {}
+        // obj.name = "xx" // 给一个对应设置一个属性
+        // // 精细化设置一个对象的属性
+        // Object.defineProperty(obj,'name',{
+        //     configurable:true,
+        //     enumerable:true,
+        //     value:"xx"
+        // })
+        // 就可以把school数据变成响应式
         Object.defineProperty(obj,key,{
             // 当你获取school时，会调用get
             get(){
-                Dep.target && dep.subs.push(Dep.target)
-                // console.log("get....")
+                // console.log("get...")
                 return value
             },
             // 当你设置school时，会调用set
-            set:(newVal)=>{
+            set(newVal){
                 // 当赋的值和老值一样，就不重新赋值
                 if(newVal != value){
-                    this.observer(newVal)
+                    // console.log("set...")
                     value = newVal
-                    dep.notify();
                 }
             }
         })
@@ -156,37 +128,43 @@ class Compiler{
 }
 // 写一个对象，{}，包含了不同的指令对应的不同的处理办法
 CompilerUtil = {
+    // expr school.name    vm.$data school:{name:xx,age:xx}
     getVal(vm,expr){
+        // console.log(expr.split(".")) // ["school", "name"]
+        // 第一次data是school:{name:xx,age:xx}  current是"school"
         return expr.split(".").reduce((data,current)=>{
             return data[current]
         },vm.$data);
     },
-    model(node,expr,vm){ 
-        let fn =  this.updater["modelUpdater"]
-        // 给输入框添加一个观察者，如果后面数据改变了，
-        new Watcher(vm,expr,(newVal)=>{
-            fn(node,newVal)
-        })
+    model(node,expr,vm){ // node是带指令的元素节点  expr是表达式  vm是vue对象
+        // console.log("处理v-model指令")
+        // console.log(node)
+        // console.log(expr)  
+        // console.log(vm)  // Vue {$el: "#app", $data: {…}}   $data: {school: {…}}  $el: "#app"
+        // 在这里要做v-model要做的事
+        // 要给输入框一个value属性 node是输入框 node.value = xxxx
         let value = this.getVal(vm,expr)
+        // console.log(value)  // beida
+        let fn =  this.updater["modelUpdater"]
         fn(node,value);
     },
     html(){
         // 在这里要做v-html要做的事
     },
-    // 得到新的内容
-    getContentValue(vm,expr){
-        return expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{
-            return this.getVal(vm,args[1])
-        })
-    },
     text(node,expr,vm){
-        let fn =  this.updater["textUpdater"]
+        // console.log("处理v-text指令")  {{}}
+        // console.log(node)  // "{{school.name}}"
+        // console.log(expr)  // {{school.name}}
+        // console.log(vm)  // vue实例
         let content = expr.replace(/\{\{(.+?)\}\}/g,(...args)=>{
-            new Watcher(vm,args[1],()=>{
-                fn(node,this.getContentValue(vm,expr));
-            })
+            // console.log(vm)
+            // console.log(args)  // {{school.name}}
+            // let r = this.getVal(vm,args[1])
+            // console.log(r)  // beida  100
             return this.getVal(vm,args[1])
         })
+        // console.log(content)  // // beida  100
+        let fn =  this.updater["textUpdater"]
         fn(node,content);
     },
     // 更新数据
