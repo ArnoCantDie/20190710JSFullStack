@@ -1,0 +1,20 @@
+{
+  "name": "mywebpack",
+  "version": "1.0.0",
+  "description": "vue技术栈：vue + vue-router + vuex + es6 + webpack + vue-cli + UI库 + node",
+  "main": "index.js",
+  "scripts": {
+    "dev:build":"webpack --env.development  --config ./build/webpack.base.js",
+    "dev": "webpack-dev-server --env.development --config ./build/webpack.base.js",
+    "build": "webpack --env.production  --config ./build/webpack.base.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2",
+    "webpack-merge": "^4.2.2"
+  }
+}
