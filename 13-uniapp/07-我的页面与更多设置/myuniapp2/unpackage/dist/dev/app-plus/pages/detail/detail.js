@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"uparse .",[1],"p{ padding: 0!important; }\n.",[1],"uparse wx-view,.",[1],"uparse wx-uni-view{ line-height: 0!important; }\n",],undefined,{path:"./pages/detail/detail.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/detail/detail.wxml') } }));
