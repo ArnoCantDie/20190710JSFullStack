@@ -1,0 +1,9 @@
+001，Promise原理（**）？ 
+	答：看代码，参考：https://juejin.im/post/5b2f02cd5188252b937548ab
+	
+002，then可以链式调用，多个then时，如果走到下一个then的失败回调？
+	答：1，返回一个失败的promse  2，抛出一个错误
+
+003，then可以链式调用，多个then时，如何终止下一个then的调用？
+	答：返回一个处于pending状态的promise
+	
