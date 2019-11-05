@@ -1,0 +1,54 @@
+001，Promise原理（**）？  
+	答：看代码，参考：https://juejin.im/post/5b2f02cd5188252b937548ab
+	
+002，then可以链式调用，多个then时，如果走到下一个then的失败回调？
+	答：1，返回一个失败的promse  2，抛出一个错误
+
+003，then可以链式调用，多个then时，如何终止下一个then的调用？
+	答：返回一个处于pending状态的promise
+	
+004，js的异步解决方案有哪些(**)？
+	答：回调函数（node，嵌套，err）。
+		Promise。
+		Generator+co。 co可以解决promise嵌套问题。generator+promise(promise嵌套问题)
+		async+await  是Generator的语法糖
+		
+005，把一个伪数组变成真实的数组？
+	 答：[...obj]  Array.from  [].slice.call(obj)
+	     [...obj]需要保证obj是可迭代 
+		 Array.from不需要保证obj是否可迭代，内部会使它可迭代
+		 
+006，使用过ES6中的哪些新语法（** 熟练使用ES语法）？
+	答：解构赋值  [] {} 
+		展开运算会   考察深copy  浅copy  
+			copy:... slice JSON.parse(JSON.strinfy(obj));
+		Map : 里面存储唯一的值 
+		
+007，求数组的交集、并集、差集？
+	答：看代码 
+
+008，实现深copy？
+	答：先自己实现。  
+	
+009，ES6中的模块化？
+	答：export导出 import导入 
+	
+010，模块化的发展流程？
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+Promise掌握程度：
+	1，至少要会使用，会then的链式调用，会Promise中的方法的使用
+	2，至少能实现Promise中的基本then方法，三个状态，异步，链式可以不用实现
