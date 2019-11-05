@@ -1,0 +1,20 @@
+<script>
+    // class Dog { }
+    // let dog = new Dog();
+    // let map = new Map([["name", "wangcai"], ["age", 100]]);
+    // map.set(dog, 666)
+    // console.log(map)
+    // dog = null
+    // console.log(map)
+</script>
+
+<script>
+    class Dog { }
+    let dog = new Dog();
+    // WeakMap 键必须是对象
+    let map = new WeakMap();
+    map.set(dog, 666)
+    console.log(map) // WeakMap {Dog => 666}
+    dog = null;
+    console.log(map) // WeakMap {Dog => 666}
+</script>
