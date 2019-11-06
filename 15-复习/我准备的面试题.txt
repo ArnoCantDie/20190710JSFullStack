@@ -23,17 +23,36 @@
 		展开运算会   考察深copy  浅copy  
 			copy:... slice JSON.parse(JSON.strinfy(obj));
 		Map : 里面存储唯一的值 
+		WeakMap
+		Set
+		ES6中的模块化 
+		箭头函数 
+		装饰器 
+		模板字符串
+		数组中一堆方法  reduce  map  filter  some  every.....
+		对象中一堆方法  Object.key()  Object.defindproty   Objct.value    Objtct.xxxx
+		类，继承    构造器   原型链
+		Proxy  ---- defindprototy   
+		Symbol
+		
+		
 		
 007，求数组的交集、并集、差集？
 	答：看代码 
 
 008，实现深copy？
-	答：先自己实现。  
+	答：先自己实现。
+		简单的，也有复杂。
 	
 009，ES6中的模块化？
 	答：export导出 import导入 
 	
 010，模块化的发展流程？
+	答：CommonJS的模块化
+	
+011，ES5和ES6是如何实现继承的？
+	答：ES5中使用的是原型链模拟出来的继承
+		ES6中的class也是语法糖
 	
 	
 	

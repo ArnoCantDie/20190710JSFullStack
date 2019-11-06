@@ -1,0 +1,62 @@
+<script>
+    // let a = 110;
+    // let obj = {
+    //     a: 666,
+    //     f() {
+    //         setTimeout(function () {
+    //             console.log(this.a)  // undefeined
+    //         }, 1000)
+    //     }
+    // }
+    // obj.f();
+
+
+    // var声明的变量会挂到window
+    // var a = 110;
+    // let obj = {
+    //     a: 666,
+    //     f() {
+    //         setTimeout(function () {
+    //             console.log(this.a) // 110
+    //         }, 1000)
+    //     }
+    // }
+    // obj.f();
+
+
+    // let a = 110;
+    // let obj = {
+    //     a: 666,
+    //     f() {
+    //         setTimeout(()=>{
+    //             console.log(this.a)  // 666
+    //         }, 1000)
+    //     }
+    // }
+    // obj.f();
+
+
+    // let a = 110;
+    // let obj = {
+    //     a: 666,
+    //     f:()=>{
+    //         setTimeout(()=>{
+    //             console.log(this.a)  // undefined
+    //         }, 1000)
+    //     }
+    // }
+    // obj.f();
+
+
+    var a = 110;
+    let obj = {
+        a: 666,
+        f:()=>{
+            setTimeout(()=>{
+                console.log(this.a)  // 110
+            }, 1000)
+        }
+    }
+    obj.f();
+
+</script>

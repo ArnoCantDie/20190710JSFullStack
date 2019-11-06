@@ -1,0 +1,12 @@
+<script>
+function Person(name){
+    this.name = name;
+}
+Person.prototype.say = function(){
+    console.log("say....")
+}
+let p = new Person("wangcai")
+// console.log(p.constructor === p.__proto__.constructor)  // true
+// console.log(Person.prototype.__proto__.__proto__)  // null
+console.log(Person.prototype.__proto__ == Object.prototype)  // true
+</script>

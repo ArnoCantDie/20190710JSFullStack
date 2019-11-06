@@ -1,0 +1,48 @@
+<script>
+    // class Animal {
+    //     age = 10000; // ES
+    //     constructor(name) {
+    //         this.name = name;
+    //         // this.age = 10000
+    //     }
+    // }
+    // let a = new Animal("wangcai")
+    // console.log(a.age)  // 10000
+    // console.log(a.hasOwnProperty("age")) // true
+
+    // class Animal {
+    //     constructor(name) {
+    //         this.name = name;
+    //     }
+    //     get age() {
+    //         return 666
+    //     }
+    // }
+    // let a = new Animal("wangcai")
+    // console.log(Animal.age)  // undefined
+
+
+    class Animal {
+        // 不是实例属性，也不是公有属性（原型上的属性），是静态属性
+        static a = 110;  // 定义一个静态属性   node不认识
+        static say(){
+            console.log("say...")
+        }
+        constructor(name) {
+            this.name = name;
+        }
+        get age() {
+            return 666
+        }
+    }
+    let obj = new Animal("wangcai")
+    // console.log(Animal.a)  // 110
+    // console.log(Animal.say())  // 110
+
+    // 静态属性不能通过实例来调用
+    console.log(obj.a)
+    console.log(obj.say())
+    
+    console.log(obj.hasOwnProperty("a"))  // false
+    console.log(obj.__proto__.hasOwnProperty("a"))  // false
+</script>
