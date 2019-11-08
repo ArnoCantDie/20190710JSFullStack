@@ -1,76 +1,95 @@
-const koa = require("koa")
-const router = require("koa-router")()
-const static = require("koa-static")
-const axios = require("axios")
-const querystring = require("querystring")
+const Koa = require('koa');
+const koaStatic = require("koa-static")
+const {ServerToken,ClientToken} = require("./mongoose")
+const Router = require("koa-router")
+const wechat = require("co-wechat")
+const WechatAPI = require("co-wechat-api")
+const OAuth = require('co-wechat-oauth');
+const config = require("./config")
 
-const app = new koa();
-app.use(static(__dirname+"/"))
+const app = new Koa();
+const router = new Router();
 
-const config = {
-    client_id:"57f656a69d2e941d7102",
-    client_secret:"88fea79cef551ae48658faa88b25e8eb6afc6f43"
+let menu = {
+    "button": [
+        {
+            "type": "click",
+            "name": "今日歌曲",
+            "key": "V1001_TODAY_MUSIC"
+        },
+        {
+            "name": "菜单",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "搜索",
+                    "url": "http://wc.free.idcfengye.com/"
+                },
+                {
+                    "type": "click",
+                    "name": "赞一下我们",
+                    "key": "V1001_GOOD"
+                }]
+        }]
 }
 
-router.get("/github/login",(ctx)=>{
-    // 需要重定向到github的认证页面
-    // https://github.com/settings/applications/new
+app.use(koaStatic(__dirname + "/"))
 
-    let path = "https://github.com/login/oauth/authorize?client_id="+config.client_id
+// 自己的服务器要接入到腾讯的服务器
+router.all('/wechat', wechat(config).middleware(async message => {
+    return "hello"
+}));
 
-    ctx.redirect(path)
+// co-wechat-api 处理access_token
+// 这里面得到的令牌，作用是去带着令牌去请求微信公众平台的api接口
+const api = new WechatAPI(config.appID, config.appsecret,
+    async ()=>await ServerToken.findOne(),
+    async token=>await ServerToken.updateOne({},token,{upsert:true})
+)
 
-    // ctx.body = "hello ~"
+// 后面去调接口就是api.xxxx
+router.get("/getFollers", async ctx => {
+    let res = await api.getFollowers();
+    api.createMenu(menu);
+    console.log(res)
+    ctx.body = res
 })
 
-router.get("/github/callback",async (ctx)=>{
-    // console.log("callback....")
-    const code = ctx.query.code  // 994103c1803bd3dd4e31
+const oauth = new OAuth(config.appID, config.appsecret);
+
+router.get("/wxAuthrize",async ctx => {
+    const state = ctx.query.id;
+    // http://wc.free.idcfengye.com/wxAuthrize
+    // console.log(ctx.href)
+    let redirectUrl = ctx.href.replace("wxAuthrize","wxCallback")
+    // console.log(redirectUrl) // http://wc.free.idcfengye.com/wxCallback
+    console.log(redirectUrl)
+    // http://wc.free.idcfengye.com/wxCallback
+    const scope = "snsapi_userinfo"
+    const url = oauth.getAuthorizeURL(redirectUrl,state,scope)
+    ctx.redirect(url)
+})
+
+router.get("/wxCallback",async ctx=>{
+    console.log("callback...")
+    const code = ctx.query.code;
     // console.log(code)
-    const params = {
-        client_id:config.client_id,
-        client_secret:config.client_secret,
-        code:code
-    }
-    let res = await axios.post("https://github.com/login/oauth/access_token",params)
-    // console.log(res.data) // access_token=62563fc4ba2b9fa279969dbca6727659668dcc51&scope=&token_type=bearer
-    const access_token = querystring.parse(res.data).access_token;
-    // console.log(access_token) // ae4c23f9307c4d88286b33d52705711c8ec8c668
-    res = await axios.get("https://api.github.com/user?access_token="+access_token)
-    // console.log(res.data) // 得到一堆的用户信息
+    const token = await oauth.getAccessToken(code)
+    const accessToken = token.data.access_token;
+    console.log(accessToken)
+    const openid = token.data.openid;
+
+    let userInfo = await oauth.getUser(openid)
+    console.log(userInfo)
+
     ctx.body = `
-        <h1>hello ${res.data.login}</h1>
-        <img src=${res.data.avatar_url} />>
+        <h1>${userInfo}</h1>
     `
 })
 
-app.use(router.routes()); // 启动路由
+
+
+app.use(router.routes())
 app.use(router.allowedMethods());
-app.listen(3000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.listen(3000);
 
