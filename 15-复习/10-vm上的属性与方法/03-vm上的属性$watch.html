@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data(){
+                return{name:"wangcai"}
+            },
+        })
+        // $watch可以监控Data中的数据
+        // 通过$watch得到值，肯定是更新后的值
+        // 当数据发生了改变，肯定会走回调函数
+        vm.$watch("name",function(newValue,oldValue){
+            // console.log("newValue--->",newValue)
+            // console.log("oldValue--->",oldValue)
+            console.log(newValue)
+        })
+        
+        // vm.$el.innerHTML得到的值可能是更新前的值 
+        // vm.name = "xxx"
+        // console.log(vm.$el.innerHTML)
+        // debugger;
+    </script>
+</body>
+
+</html>

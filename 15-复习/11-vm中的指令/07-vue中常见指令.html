@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 说明只去渲染一次，再改变数据时，不会再次渲染 -->
+        <!-- <p v-once>{{name}}</p> -->
+
+        <!-- <h1>hello</h1> -->
+        <!-- <span v-text="tml"></span> -->
+        <!-- <span>{{tml}}</span> -->
+
+        <!-- v-html  能不使用就不使用 xss-->
+        <!-- <span v-html="tml"></span> -->
+
+        <!-- xss攻击:输入了让js脚本 能不使用v-html就不使用v-html -->
+        <!-- <input type="text" v-model="demo">
+        <span v-html="demo"></span> -->
+
+        <!-- 属性是：title="name" -->
+        <!-- <p title="name">xxx</p> -->
+
+        <!-- 不OK -->
+        <!-- <p title={{name}}>xxx</p> -->
+
+        <!-- <p v-bind:title="name">xxx</p> -->
+        <!-- <p :title="name">xxx</p> -->
+
+        <!-- v-for:数字  对象  数组* -->
+        <!-- 要循环谁就写在谁身上 -->
+        <!-- key的作用是就是给里li 加上一个唯一标识  domdiff -->
+        <!-- <ul>
+            <li v-for="(item,index) in persons" :key="index">{{item}}</li>
+        </ul> -->
+
+        <!-- 不使用index作为key  使用index可能会创建新的dom元素 -->
+        <!-- 使用id作为key 内容没变，仅仅位置变了，只需要完成位置交换 -->
+        <!-- 当进行domdiff时 0 1 2 3 -->
+        <!-- 页面上有一个倒序按钮  -->
+        <!-- <ul>
+            <li v-for="(item,index) in persons" :key="index">{{item}}</li>
+        </ul> -->
+
+        <!-- 多个li时，让key唯一 -->
+        <!-- <div>
+            <div v-for="(fruit,index) in fruits">
+                <li :key="`name_${index}`">{{fruit.name}}</li>
+                <li :key="`color_${index}`">{{fruit.color}}</li>
+            </div>
+        </div> -->
+
+        <!-- template标签 -->
+        <!-- <div>
+            <template v-for="(fruit,index) in fruits">
+                <li :key="`name_${index}`">{{fruit.name}}</li>
+                <li :key="`color_${index}`">{{fruit.color}}</li>
+            </template>
+        </div> -->
+
+        <!-- v-if控制是DOM元素有还是没有 -->
+        <!-- <template v-if="isShow">
+            <span>OK</span>
+        </template>
+        <template v-else>
+            <span>不OK</span>
+        </template> -->
+
+        <!-- v-show需要放到一个真实的dom上，不能放在template上面 -->
+        <!-- <div v-show="isShow">
+            <span>OK</span>
+        </div>
+        <div v-show="!isShow">
+            <span>不OK</span>
+        </div> -->
+
+        <!-- v-if和v-for混合用？查一下 -->
+        <!-- <ul>
+            <li v-if="isShow" v-for="(item,index) in persons" :key="index">{{item}}</li>
+        </ul> -->
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    name: "wangcai",
+                    tml: "<h1>hello</h1>",
+                    demo: "",
+                    persons: ["张三", "李四", "王五", "赵六"],
+                    fruits: [{ name: "苹果", color: "red" }, { name: "香蕉", color: "yellow" }, { name: "橘子", color: "green" }],
+                    isShow: false
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

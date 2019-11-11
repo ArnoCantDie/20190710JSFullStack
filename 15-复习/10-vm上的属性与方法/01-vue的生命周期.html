@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}
+    </div>
+    <script>
+        // 现在就有了vue的实例  就是vm的生命周期
+        // 研究的话，也是去研究生命周期中的钩子
+        // 生命周期和钩子函数有什么区别？
+        // 在一个生命周期中，有多个钩子函数，这个函数不需要我们自己调用
+        // vue框架会在合适的时间去调用这个函数
+        let vm = new Vue({
+            // template:"<div><div>",
+            el:"#app",
+            beforeCreate () {
+                // 一般不会使用这个钩子
+                // vue-router  vuex  混入时  一般会使用beforeCreate
+                // 在最早的钩子，混入一些东西，后面的组件 都可以使用
+                // beforeCreate 混入时给每一个组件添加一特有的属性
+                console.log("beferoCreate")
+                console.log(this)
+            },
+            created () {
+                // 当前组件已构造完成，已经完成了数据劫持了
+                // 把方法，计算属性都已经挂载到了当前的组件上
+                // 但是它并没有把这个组件渲染成真实dom
+                // create中并不能获取真实的dom 
+                // 通常会完成ajax请求，不能操作dom 
+                console.log("created")
+                
+            },
+            data(){
+                return{name:1}
+            },
+            beforeMount () {
+                console.log("beforeMount 挂载之前")
+            },
+            mounted () {
+                // 真实dom已完成，挂载了页面上
+                // 也可以发起ajax请求
+                // 在create或mounted发起ajax都可以
+                console.log("mounted 挂载完成")
+                console.log(this.$el)
+            },
+            beforeUpdate () {
+                console.log("beforeUpdate")
+            },
+            updated () {
+                // 不能修改data中的数据, 可能会造成死循环
+                // this.name = Math.random();
+                console.log("updated")
+            },
+            beforeDestroy () {
+                console.log("beforeDestroy 销毁之前调用")
+            },
+            destroyed () {
+                console.log("destroyed 销毁后调用")
+            }
+        })
+        // vm.$destroy()
+        // console.log(vm)
+
+        // 对于写项目来说：created  mounted  beforeDestory
+    </script>
+</body>
+
+</html>

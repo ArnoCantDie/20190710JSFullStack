@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}{{age}}
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data(){
+                return{name:"wangcai",age:{}}
+            }
+        })
+        // console.log(vm.$data)  // 获取数据
+        // console.log(vm.$options)  // 获取挂载项
+
+        // 如果数据没有放到data中，是侦测不到
+        // vm.age = 100
+
+        // 如果你后期想在data中放一个新的数据，并且想让vue可能侦测到
+        // 那么可以使用$set 
+        // vm.age = "100";
+        // vm.$set(vm.$data,"age",100)
+    </script>
+</body>
+
+</html>

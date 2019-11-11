@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <template v-if="isShow">
+            <span>OK</span>
+            <input type="text" key="1">
+        </template>
+        <template v-else>
+            <span>不OK</span>
+            <input type="text" key="2">
+        </template> -->
+
+        <!-- <input type="text" :value="value" v-on:input="f"> -->
+        <!-- <input type="text" v-model="value">
+        {{value}} -->
+
+
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    isShow: false,
+                    value:"xxxx"
+                }
+            },
+            methods: {
+                f(e){
+                    // console.log(e.target.value)
+                    this.value = e.target.value
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

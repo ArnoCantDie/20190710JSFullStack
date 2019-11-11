@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data(){
+                return{name:"wangcai"}
+            },
+        })
+        // vm.$watch("name",function(newValue,oldValue){
+        //     console.log(newValue)
+        // })
+
+        // 视图更新是异步的，既然是异步的，有可能你得到的不是更新后的
+        vm.$nextTick(()=>{
+            // 如果你要想通过$el.innerHTML获取更新后的dom元素，需要在下一个事件环中获取
+            // setTimeout  then ... 
+            console.log("---->",vm.$el.innerHTML)
+        })
+        
+    </script>
+</body>
+
+</html>

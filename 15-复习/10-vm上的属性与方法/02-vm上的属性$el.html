@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}}
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data(){
+                return{name:"wangcai"}
+            },
+        })
+        vm.name = "xxx"; // 数据更新了，dom要重新渲染
+        // vm.name = "yyy";  // 数据更新了，dom要重新渲染
+        // vue中视图更新是同步还是异步的？答：异步
+        setTimeout(()=>{
+            // vm.$el可以得到的真实dom元素不是更新后的
+            // 如何通过$el获取到更新后的dom元素？答：在下一下事件环中得到更新后dom元素
+            console.log(vm.$el)  // 
+        })
+        debugger
+    </script>
+</body>
+
+</html>

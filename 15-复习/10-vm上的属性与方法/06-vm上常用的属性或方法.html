@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{name}} {{obj.age}}
+    </div>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            mounted () {
+                // this.$set(this.obj,"age","100")
+            },
+            data(){
+                return{
+                    name:"wangcai",
+                    obj:{}
+                }
+            },
+        })
+        // console.log(vm.$data) // 得到的是data对象
+        // console.log(vm.$options) // 得到的挂载项
+        // console.log(vm.$el) // 真实的dom元素
+        // console.log(vm.$el.innerHTML) // 真实的dom元素中的内容
+
+        // 通过vm.$el.innerHTML得到的数据有可能是更新之前的
+        // 要获取最新的数据，最好在下一个事件环中获取
+        // vm.$nextTick(()=>{
+        //     console.log(vm.$el.innerHTML)
+        // })
+
+        // vm.$watch("name", function(newV,oldV){
+        //     console.log(newV) // 得到的最新的值
+        // })
+
+        // 默认情况下，劫持的数据都要放在data，在data外面写的数据，不会被侦测
+        // vm.age = 100
+
+        // $set() 可以给data中动态地添加一个数据，前提是只能给对象中添加数据
+        vm.$set(vm.obj,"age","100")
+
+    </script>
+</body>
+
+</html>

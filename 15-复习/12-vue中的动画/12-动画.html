@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 
+        app:
+
+     -->
+    <meta charset="UTF-8">
+    <style>
+        .main {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        /* 表示进入之前 */
+        .abc-enter {
+            /* opacity: 0; */
+            /* background-color: red; */
+        }
+        .abc-enter-active {
+            /* opacity: 1; */
+            background-color: green;
+            transition:all 3s ease;
+        }
+        .abc-enter-to {
+            background-color: blue;
+        }
+        .abc-leave{
+            background: pink;
+        }
+        .abc-leave-active{
+            transition:all 10s ease;
+            background-color: black;
+        }
+        .abc-leave-to{
+            background-color: orangered;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="change">click</button>
+        <transition name="abc">
+            <div class="main" v-if="isShow">
+                box
+            </div>
+        </transition>
+
+    </div>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    isShow: false
+                }
+            },
+            methods: {
+                change() {
+                    this.isShow = !this.isShow;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
